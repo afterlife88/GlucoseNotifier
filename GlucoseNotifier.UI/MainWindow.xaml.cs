@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -25,7 +26,7 @@ namespace GlucoseNotifier.UI
         {
             InitializeComponent();
 
-            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(60) };
+            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
             timer.Tick += timer_Tick;
             timer.Start();
             _notifyIcon = new NotifyIcon();
@@ -68,6 +69,7 @@ namespace GlucoseNotifier.UI
             DateTime startTime = vm[0].SugarTime;
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(startTime);
+            Trace.Write(span.Minutes);
             if (span.Minutes < 1)
                 UpdateNotificationIcon(vm[0].CurrentSugar);
 
