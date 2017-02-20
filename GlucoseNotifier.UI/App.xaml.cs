@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using GlucoseNotifier.Services.Configuration;
 
 namespace GlucoseNotifier.UI
 {
@@ -13,5 +14,10 @@ namespace GlucoseNotifier.UI
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            AutomapperConfiguration.Load();
+        }
     }
 }

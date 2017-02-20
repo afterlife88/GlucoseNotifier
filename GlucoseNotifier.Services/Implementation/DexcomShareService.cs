@@ -56,6 +56,8 @@ namespace GlucoseNotifier.Services.Implementation
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Dexcom Share / 3.0.2.11 CFNetwork / 711.2.23 Darwin / 14.0.0");
                 client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
                 var response = await client.PostAsync(requestUrl, null);
+                if (!response.IsSuccessStatusCode)
+                    return null;
                 var res = await response.Content.ReadAsStringAsync();
                 var cleanStr = res.Replace("\\", "");
                 var listOfBGs = JsonConvert.DeserializeObject<List<BGResponse>>(cleanStr);
