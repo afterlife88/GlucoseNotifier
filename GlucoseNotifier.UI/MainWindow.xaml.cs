@@ -68,22 +68,21 @@ namespace GlucoseNotifier.UI
             DateTime startTime = vm[0].SugarTime;
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(startTime);
-            if (span.Minutes > 4)
-                UpdateNotificationIcon(vm[0].CurrentSugar, span.Minutes);
+            if (span.Minutes < 1)
+                UpdateNotificationIcon(vm[0].CurrentSugar);
 
 
-            _notifyIcon.Text = $@"{vm[0].CurrentSugar} mg/dl, last update {span.Minutes} ago";
+            _notifyIcon.Text = $@"{vm[0].CurrentSugar} mg/dl, last update {span.Minutes} minutes ago";
             timePassed.Content = $"{span.Minutes} minutes ago";
             currentBg.Content = vm[0].CurrentSugar;
         }
 
-        private void UpdateNotificationIcon(int currSugar, int passedMinutes)
+        private void UpdateNotificationIcon(int currSugar)
         {
             _notifyIcon.BalloonTipTitle = @"Current blood sugar";
             _notifyIcon.BalloonTipText = $@"{currSugar} mg/dl";
             _notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
             _notifyIcon.ShowBalloonTip(10);
-
         }
 
         private void Window_Initialized(object sender, EventArgs e)
